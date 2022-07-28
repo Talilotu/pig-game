@@ -62,7 +62,15 @@ main {
   color: #c7365f;
   margin-bottom: auto;
 }
-
+.turn {
+  position: relative;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  word-spacing: 2px;
+  font-weight: 300;
+  margin-bottom: 4rem;
+}
 .player--active {
   background-color: rgba(255, 255, 255, 0.4);
 }

@@ -12,11 +12,15 @@ const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('btn--hold');
+const turn0El = document.querySelector('#turn--0');
+const turn1El = document.querySelector('#turn--1');
 
 // Starting conditions
 score0El.textContent = 0;
 score1El.textContent = 0;
 diceEl.classList.add('hidden');
+turn0El.classList.add('hidden');
+turn1El.classList.add('hidden');
 
 const scores = [0, 0];
 let currentScore = 0;
@@ -42,13 +46,14 @@ btnRoll.addEventListener('click', function () {
     currentScore += dice;
     document.getElementById(`current--${activePlayer}`).textContent =
       currentScore;
-    //current0El.textContent = currentScore; //CHANGE LATER
+    document.getElementById(`turn--${activePlayer}`).classList.add('hidden');
   } else {
-    console.log('Oops my turn');
     // Switch to next player
     document.getElementById(`current--${activePlayer}`).textContent = 0;
+
     activePlayer = activePlayer === 0 ? 1 : 0;
     //set current score back to 0
+    document.getElementById(`turn--${activePlayer}`).classList.remove('hidden');
     currentScore = 0;
     // toggle will add the class if it is not there, and if it is there then it will remove it.
     player0El.classList.toggle('player--active');
