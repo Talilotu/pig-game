@@ -11,7 +11,7 @@ const current1El = document.getElementById('current--1');
 const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
-const btnHold = document.querySelector('btn--hold');
+const btnHold = document.querySelector('.btn--hold');
 const turn0El = document.querySelector('#turn--0');
 const turn1El = document.querySelector('#turn--1');
 
@@ -22,10 +22,23 @@ diceEl.classList.add('hidden');
 turn0El.classList.add('hidden');
 turn1El.classList.add('hidden');
 
-const scores = [0, 0];
+const scores = [0, 0]; //holds the score of player 0 and 1 positions
 let currentScore = 0;
 // this currentScore cannot be insdie a function because then it would set to 0 after we click the button, so best to set it ouside the function.
 let activePlayer = 0;
+
+const switchPlayer = function () {
+  document.getElementById(`current--${activePlayer}`).textContent = 0;
+
+  activePlayer = activePlayer === 0 ? 1 : 0;
+  //set current score back to 0
+
+  currentScore = 0;
+
+  player0El.classList.toggle('player--active');
+  player1El.classList.toggle('player--active');
+  // toggle will add the class if it is not there, and if it is there then it will remove it.
+};
 
 // 2. Implement game functionality
 // Roll the dice
@@ -49,14 +62,20 @@ btnRoll.addEventListener('click', function () {
     document.getElementById(`turn--${activePlayer}`).classList.add('hidden');
   } else {
     // Switch to next player
-    document.getElementById(`current--${activePlayer}`).textContent = 0;
-
-    activePlayer = activePlayer === 0 ? 1 : 0;
-    //set current score back to 0
+    switchPlayer();
     document.getElementById(`turn--${activePlayer}`).classList.remove('hidden');
-    currentScore = 0;
-    // toggle will add the class if it is not there, and if it is there then it will remove it.
-    player0El.classList.toggle('player--active');
-    player1El.classList.toggle('player--active');
   }
+});
+
+btnHold.addEventListener('click', function () {
+  // 1. Add current score to activate player's score
+  scores[activePlayer] += currentScore;
+  //scores[1]= scores[1] + currentScore
+  document.getElementById(`score--${activePlayer}`).textContent =
+    scores[activePlayer];
+
+  // 2. Check if player's score is >= 100
+  // Finish the game
+  // Switch to the next player
+  switchPlayer();
 });
